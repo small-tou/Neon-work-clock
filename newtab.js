@@ -78,11 +78,12 @@ function getWorkTimeToday() {
   const todayWorklogs = worklogs.filter((worklog) => {
     return new Date(worklog.date).getTime() > todayStartTimestamp.getTime();
   });
-
-  todayWorklogs.push({
-    date: todayStartTimestamp,
-    status: todayWorklogs[todayWorklogs.length - 1].status,
-  });
+  if (worklogs.length != todayWorklogs.length) {
+    todayWorklogs.push({
+      date: todayStartTimestamp,
+      status: todayWorklogs[todayWorklogs.length - 1].status,
+    });
+  }
   const nowTime = new Date().getTime();
   const logs = todayWorklogs;
   let workTime = 0;
