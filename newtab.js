@@ -1,3 +1,4 @@
+let lastH = new Date().getHours();
 const display = () => {
   const date = new Date();
   const month = date.getMonth();
@@ -36,7 +37,29 @@ const display = () => {
   });
   document.getElementById("worklogs").innerHTML = worklogs_html.join("\n");
   getWorkTimeToday();
+
+  if (new Date().getHours() == 18 && lastH == 17) {
+    lastH = new Date().getHours();
+    const title = chrome.i18n.getMessage("title");
+    chrome.notifications.create(null, {
+      iconUrl: "logo.png", // icon url - can be relative
+      title: title, // notification title
+      type: "basic",
+      message: "it's time to off work!", // notification body text
+    });
+  }
+  if (new Date().getHours() == 9 && lastH == 8) {
+    lastH = new Date().getHours();
+    const title = chrome.i18n.getMessage("title");
+    chrome.notifications.create(null, {
+      iconUrl: "logo.png", // icon url - can be relative
+      title: title, // notification title
+      type: "basic",
+      message: "it's time to start work!", // notification body text
+    });
+  }
 };
+
 setInterval(() => {
   display();
 }, 100);
@@ -102,5 +125,4 @@ function getWorkTimeToday() {
     (workTime / 1000) % 60
   )}s`;
 }
-const title = chrome.i18n.getMessage("title");
 document.title = title;
