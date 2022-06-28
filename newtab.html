@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <style>
+      @font-face {
+        font-family: "neontubes";
+        src: url("./neontubes-webfont.ttf");
+
+        font-weight: normal;
+        font-style: normal;
+      }
+      :root {
+        --clr1: #ff003c;
+        --clr2: rgb(38, 149, 255);
+      }
+
+      body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background: rgb(3, 12, 28);
+      }
+
+      .logo {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        text-align: center;
+        transform: translate(-50%, -50%);
+        width: 60vw;
+        height: auto;
+        font-family: "neontubes";
+        font-size: 6vw;
+        text-align: center;
+        white-space: nowrap;
+      }
+      .logo span {
+        display: block;
+        position: relative;
+        transform: translateZ(0) translate3D(0, 0, 0);
+        backface-visibility: hidden;
+        will-change: opacity;
+      }
+
+      .logo .open {
+        /* transform: rotate(-1deg); */
+        color: #ffd9e2;
+        text-shadow: 0 0 0 transparent, 0 0 10px rgb(255, 0, 60),
+          0 0 20px rgba(255, 0, 60, 0.5), 0 0 40px rgba(255, 0, 60, 1),
+          0 0 100px rgba(255, 0, 60, 1), 0 0 200px rgba(255, 0, 60, 1),
+          0 0 300px rgba(255, 0, 60, 1), 0 0 500px rgba(255, 0, 60, 1),
+          0 0 1000px rgba(255, 0, 60, 1);
+        animation: blink 4s infinite alternate;
+      }
+      .logo .hrs span {
+        font-size: 9vw;
+        color: #d4eaff;
+        text-shadow: 0 0 0 transparent, 0 0 5px #2695ff,
+          0 0 10px rgba(38, 149, 255, 0.5), 0 0 20px rgba(38, 149, 255, 1),
+          0 0 50px rgba(38, 149, 255, 1), 0 0 150px rgba(38, 149, 255, 1),
+          0 0 200px rgba(38, 149, 255, 1), 0 0 250px rgba(38, 149, 255, 1);
+        animation: buzz 0.01s infinite alternate;
+      }
+      .logo .hrs em {
+        font-style: normal;
+        display: inline-block;
+        width: 3vw;
+        font-size: 9vw;
+        color: #d4eaff;
+        text-shadow: 0 0 0 transparent, 0 0 5px rgb(38, 149, 255),
+          0 0 10px rgba(38, 149, 255, 0.5), 0 0 20px rgba(38, 149, 255, 1),
+          0 0 50px rgba(38, 149, 255, 1), 0 0 150px rgba(38, 149, 255, 1),
+          0 0 200px rgba(38, 149, 255, 1), 0 0 250px rgba(38, 149, 255, 1);
+        animation: buzzdot 1s infinite;
+      }
+      .hrs span {
+        display: inline-block;
+        width: 5.3vw;
+      }
+      @keyframes buzzdot {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0.1;
+        }
+      }
+      @keyframes buzz {
+        70% {
+          opacity: 0.85;
+        }
+      }
+      @keyframes blink {
+        40% {
+          opacity: 1;
+        }
+        42% {
+          opacity: 0.8;
+        }
+        43% {
+          opacity: 1;
+        }
+        45% {
+          opacity: 0.2;
+        }
+        46% {
+          opacity: 1;
+        }
+      }
+      .logo[data-switch="off"] {
+        opacity: 0.5;
+      }
+      .logo[data-switch="on"] {
+        opacity: 1;
+      }
+      .light-switch {
+        width: 1px;
+        height: 250px;
+        background-color: #aaa;
+        position: absolute;
+        right: 80px;
+        top: -50px;
+        transition: all 0.5s ease-in-out;
+        display: block;
+      }
+      .light-switch[data-switch="off"] {
+        top: -100px;
+        opacity: 0.5;
+      }
+      .light-switch[data-switch="on"] {
+        top: -50px;
+        opacity: 1;
+      }
+      .light-switch[data-switch="on"] .one {
+        display: none;
+      }
+      .light-switch[data-switch="on"] .two {
+        display: block;
+      }
+      .light-switch[data-switch="off"] .one {
+        display: block;
+      }
+      .light-switch[data-switch="off"] .two {
+        display: none;
+      }
+      .text {
+        color: #ffffff;
+        width: 200px;
+        right: 20px;
+        position: absolute;
+        top: 228px;
+        font-size: 12px;
+        text-align: right;
+        opacity: 0;
+        transition: all 0.5s ease-in-out;
+      }
+
+      .light-switch:hover .text {
+        opacity: 1;
+      }
+      .text .off {
+        display: none;
+      }
+
+      .dot {
+        width: 15px;
+        height: 15px;
+        background-color: #aaa;
+        position: absolute;
+        top: 245px;
+        border-radius: 50%;
+        border: 2px solid #eee;
+        left: -8px;
+        cursor: pointer;
+        box-shadow: 0px 0px 10px 2px rgba(255, 255, 255, 0.5);
+      }
+
+      .light-switch[data-switch="off"] .dot {
+        background-color: #888;
+        border: 2px solid #aaa;
+        box-shadow: 0px 0px 10px 2px rgba(255, 255, 255, 0.1);
+      }
+      .light-switch[data-switch="on"] .dot {
+        background-color: #aaa;
+        border: 2px solid #fff;
+        box-shadow: 0px 0px 10px 2px rgba(255, 255, 255, 0.5);
+      }
+      #worklogs {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        max-height: 150px;
+        overflow: auto;
+        padding: 20px;
+        width: 300px;
+        color: #aaa;
+        font-size: 12px;
+        text-align: right;
+        scroll-behavior: smooth;
+      }
+      #worklogs::-webkit-scrollbar {
+        display: none;
+      }
+      #worklogs .date {
+        margin-left: 10px;
+        font-size: 16px;
+        color: #fff;
+        font-family: SILOM;
+      }
+      .work-time {
+        position: absolute;
+        bottom: 50px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        color: #fff;
+        font-family: SILOM;
+        font-size: 18px;
+      }
+      .work-time .hd {
+        font-size: 24px;
+        color: #999;
+        padding-bottom: 10px;
+      }
+    </style>
+    <div class="logo" id="logo" data-switch="on">
+      <span class="open" id="status"></span>
+      <span class="hrs"></span>
+    </div>
+    <div class="light-switch" id="switch" data-switch="on">
+      <div class="dot" id="dot"></div>
+      <div class="text">
+        <h2 class="one">BEGIN WORK</h2>
+        <h2 class="two off">OFF WORK</h2>
+      </div>
+    </div>
+    <div class="work-time">
+      <div class="hd">TODAY WORK TIME</div>
+      <div id="workTime"></div>
+    </div>
+    <div id="worklogs"></div>
+    <script src="./newtab.js"></script>
+  </body>
+</html>

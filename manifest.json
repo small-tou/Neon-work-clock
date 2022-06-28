@@ -1,0 +1,14 @@
+{
+  "description": "__MSG_description__",
+  "icons": {
+    "128": "logo.png",
+    "48": "logo.png"
+  },
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+  "name": "__MSG_title__",
+  "version": "1.1.0",
+  "default_locale": "en",
+  "manifest_version": 3
+}
