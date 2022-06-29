@@ -41,6 +41,7 @@ const display = () => {
   if (new Date().getHours() == 18 && lastH == 17) {
     lastH = new Date().getHours();
     const title = chrome.i18n.getMessage("title");
+    document.title = title;
     chrome.notifications.create(null, {
       iconUrl: "logo.png", // icon url - can be relative
       title: title, // notification title
@@ -59,7 +60,8 @@ const display = () => {
     });
   }
 };
-
+const title = chrome.i18n.getMessage("title");
+document.title = title;
 setInterval(() => {
   display();
 }, 100);
@@ -104,7 +106,8 @@ function getWorkTimeToday() {
   if (worklogs.length != todayWorklogs.length) {
     todayWorklogs.push({
       date: todayStartTimestamp,
-      status: todayWorklogs[todayWorklogs.length - 1].status,
+      status:
+        todayWorklogs[todayWorklogs.length - 1].status == "on" ? "off" : "on",
     });
   }
   const nowTime = new Date().getTime();
@@ -125,4 +128,3 @@ function getWorkTimeToday() {
     (workTime / 1000) % 60
   )}s`;
 }
-document.title = title;
