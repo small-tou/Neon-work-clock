@@ -37,30 +37,31 @@ const display = () => {
   });
   document.getElementById("worklogs").innerHTML = worklogs_html.join("\n");
   getWorkTimeToday();
-
-  if (new Date().getHours() == 18 && lastH == 17) {
-    lastH = new Date().getHours();
-    const title = chrome.i18n.getMessage("title");
-    document.title = title;
-    chrome.notifications.create(null, {
-      iconUrl: "logo.png", // icon url - can be relative
-      title: title, // notification title
-      type: "basic",
-      message: "it's time to off work!", // notification body text
-    });
-  }
-  if (new Date().getHours() == 9 && lastH == 8) {
-    lastH = new Date().getHours();
-    const title = chrome.i18n.getMessage("title");
-    chrome.notifications.create(null, {
-      iconUrl: "logo.png", // icon url - can be relative
-      title: title, // notification title
-      type: "basic",
-      message: "it's time to start work!", // notification body text
-    });
+  if (chrome) {
+    if (new Date().getHours() == 18 && lastH == 17) {
+      lastH = new Date().getHours();
+      const title = chrome.i18n.getMessage("title");
+      document.title = title;
+      chrome.notifications.create(null, {
+        iconUrl: "logo.png", // icon url - can be relative
+        title: title, // notification title
+        type: "basic",
+        message: "it's time to off work!", // notification body text
+      });
+    }
+    if (new Date().getHours() == 9 && lastH == 8) {
+      lastH = new Date().getHours();
+      const title = chrome.i18n.getMessage("title");
+      chrome.notifications.create(null, {
+        iconUrl: "logo.png", // icon url - can be relative
+        title: title, // notification title
+        type: "basic",
+        message: "it's time to start work!", // notification body text
+      });
+    }
   }
 };
-const title = chrome.i18n.getMessage("title");
+const title = chrome ? chrome.i18n.getMessage("title") : "霓虹工作钟";
 document.title = title;
 setInterval(() => {
   display();
