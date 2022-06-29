@@ -37,7 +37,7 @@ const display = () => {
   });
   document.getElementById("worklogs").innerHTML = worklogs_html.join("\n");
   getWorkTimeToday();
-  if (chrome) {
+  if (chrome && chrome.i18n) {
     if (new Date().getHours() == 18 && lastH == 17) {
       lastH = new Date().getHours();
       const title = chrome.i18n.getMessage("title");
@@ -61,7 +61,8 @@ const display = () => {
     }
   }
 };
-const title = chrome ? chrome.i18n.getMessage("title") : "霓虹工作钟";
+const title =
+  chrome && chrome.i18n ? chrome.i18n.getMessage("title") : "霓虹工作钟";
 document.title = title;
 setInterval(() => {
   display();
