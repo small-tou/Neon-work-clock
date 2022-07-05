@@ -130,3 +130,51 @@ function getWorkTimeToday() {
     (workTime / 1000) % 60
   )}s`;
 }
+
+const getFav = async (host) => {
+  try {
+    const v = localStorage.getItem(host);
+    if (v) return v;
+    const res = await fetch(
+      "https://favicongrabber.com/api/grab/" +
+        host.replace(/http(s)?:\/\//, ""),
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const json = await res.json();
+    const img = json.icons[0].src;
+    localStorage.setItem(host, img);
+    return img;
+  } catch (e) {
+    return "";
+  }
+};
+const setLogo = async (host) => {
+  const logo = await getFav(host);
+  if (logo) document.getElementById(host).src = logo;
+};
+try {
+  chrome.topSites.get(async (list) => {
+    for (let i = 0; i < list.length; i++) {
+      const host = list[i].url.replace(/^(http(s)?:\/\/(.*?))\/.*$/, "$1");
+
+      document.getElementById(
+        "topSites"
+      ).innerHTML += `<div class="item"><a href="${list[i].url}" class="cover">
+       <img src="/chrome.svg" id="${host}" />
+      
+      </a><a href="${list[i].url}" class='title'>${list[i].title.replace(
+        /http(s)\:\/\//,
+        ""
+      )}</a></div>`;
+      setLogo(host);
+    }
+    document.getElementById("topSites").style.display = "flex";
+  });
+} catch (e) {
+  console.error(e);
+}
