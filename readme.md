@@ -9,9 +9,10 @@
 https://user-images.githubusercontent.com/897401/176200573-23739398-bd84-4c16-b57c-56f316975ec6.mp4
 
 
+![1280](https://user-images.githubusercontent.com/897401/177255268-ba01ebd1-39f0-4392-93e8-95ac5e9a9dd8.png)
 
 
-![](./1400.png)
+
 
 <h2><p align="center"> 下载</p></h2>
 
